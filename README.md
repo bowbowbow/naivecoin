@@ -1,4 +1,4 @@
-# Naivecoin
+# Naivecoin 분석
 
 ## Note
 
