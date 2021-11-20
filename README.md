@@ -4,9 +4,7 @@
 
 ### 어떻게 올바른 transaction 인지 검증할까?
 
-어떻게 올바른 transaction 인지 검증하는 방법을 validateTransaction 함수에 주석을 달아서 설명했다.
-
-validateTransaction 함수를 보면서 왜 코인이 암호화폐라고 불리는지 이제 알게되었다.
+어떻게 올바른 transaction 인지 검증하는 방법을 validateTransaction 함수에 주석을 달아서 설명했다. validateTransaction 함수를 보면서 왜 코인이 암호화폐라고 불리는지 알게되었다.
 
 지갑은 프라이빗 키가 비밀키이고 지갑 주소가 공개키인 비대칭키 구조로 되어있다.
 
