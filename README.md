@@ -4,14 +4,15 @@
 
 ### 어떻게 올바른 transaction 인지 검증할까?
 어떻게 올바른 transaction 인지 검증하는 방법을 validateTransaction 함수에 주석을 달아서 설명했다. 
+
 validateTransaction 함수를 보면서 왜 코인이 암호화폐라고 불리는지 이제 알게되었다. 
 
 지갑은 프라이빗 키가 비밀키이고 지갑 주소가 공개키인 비대칭키 구조로 되어있다.
 
-따라서 transaction을 만들 때 해싱을 통해 생성한 transaction.id를 지갑의 비밀키로 암호화화한
-signature를 포함시키고 지갑 주소와 코인 수량으로 이뤄진 UTXO(UnspentTxOut)를 참조하는 txIn을 
-transaction에 포함시키므로서 UTXO를 소유한 지갑이 만들어낸 transaction임을 증명하여 
-지갑 주인만 자신의 잔액에 대한 통제권을 가진 송금을 가능하게 한다.
+따라서 transaction을 만들 때 지갑 주소와 코인 수량으로 이뤄진 UTXO(UnspentTxOut)를 참조하는 txIn을 
+transaction에 포함시키고 txIn과 txOut을 해싱해서 만든 transaction.id를 지갑의 비밀키로 암호화화한
+signature를 포함시키므로서 UTXO에 대한 통제권을 가진 transaction임을 증명하여 
+지갑 주인만 자신의 잔액에 대한 통제권을 가진 송금이 가능해진다.
 
 ```typescript
 const validateTransaction = (transaction: Transaction, aUnspentTxOuts: UnspentTxOut[]): boolean => {
