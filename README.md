@@ -22,8 +22,8 @@ const validateTransaction = (transaction: Transaction, aUnspentTxOuts: UnspentTx
         console.log('invalid tx id: ' + transaction.id);
         return false;
     }
-    // txIn이 참조하는 UnspentTxOut을 소유한 지갑주소(공개키)로 txIn의 signature가 transaction.id을
-    // 해당 지갑의 비밀키로 암호화한 것인지 검증하여 txIn이 지갑 소유자에 의해 작성된 것인지 확인함
+    // txIn이 참조하는 UTXO(UnspentTxOut)을 소유한 지갑주소(공개키)로 transaction.signature가 transaction.id를
+    // 해당 지갑의 비밀키로 암호화한 것인지 검증하여 txIn이 transaction을 서명한 지갑의 UTXO만 참조하는 것을 확인함
     const hasValidTxIns: boolean = transaction.txIns
         .map((txIn) => validateTxIn(txIn, transaction, aUnspentTxOuts))
         .reduce((a, b) => a && b, true);
