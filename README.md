@@ -47,6 +47,47 @@ const validateTransaction = (transaction: Transaction, aUnspentTxOuts: UnspentTx
 };
 ```
 
+### unspentTxOuts는 어떻게 관리되는가?
+체인의 유효성을 검증하기 위해 제네시스 블록부터 순차적으로 transaction을 처리하며 업데이트 시킨
+unspentTxOuts를 메모리 위에 올려두고 사용한다.
+
+실제 비트코인에서도 메모리 위에 unspentTxOuts를 올려두는걸까? 배열 길이가 수 조개가 넘어갈 텐데 transaction이
+많아질 수록 더 늘어날 수도 있을텐데 실제로 어떻게 처리하는지 궁금하다.
+
+```typescript
+const isValidChain = (blockchainToValidate: Block[]): UnspentTxOut[] => {
+    console.log('isValidChain:');
+    console.log(JSON.stringify(blockchainToValidate));
+    const isValidGenesis = (block: Block): boolean => {
+        return JSON.stringify(block) === JSON.stringify(genesisBlock);
+    };
+
+    if (!isValidGenesis(blockchainToValidate[0])) {
+        return null;
+    }
+    /*
+    Validate each block in the chain. The block is valid if the block structure is valid
+      and the transaction are valid
+     */
+    let aUnspentTxOuts: UnspentTxOut[] = [];
+
+    for (let i = 0; i < blockchainToValidate.length; i++) {
+        const currentBlock: Block = blockchainToValidate[i];
+        if (i !== 0 && !isValidNewBlock(blockchainToValidate[i], blockchainToValidate[i - 1])) {
+            return null;
+        }
+
+        aUnspentTxOuts = processTransactions(currentBlock.data, aUnspentTxOuts, currentBlock.index);
+        if (aUnspentTxOuts === null) {
+            console.log('invalid transactions in blockchain');
+            return null;
+        }
+    }
+    return aUnspentTxOuts;
+};
+```
+
+
 ## Usage
 
 The repository for the naivecoin tutorial: https://lhartikk.github.io/
