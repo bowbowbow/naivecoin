@@ -48,7 +48,7 @@ const validateTransaction = (transaction: Transaction, aUnspentTxOuts: UnspentTx
 ```
 
 ### unspentTxOuts는 어떻게 관리되는가?
-체인의 유효성을 검증하기 위해 제네시스 블록부터 순차적으로 transaction을 처리하며 업데이트 시킨
+체인의 유효성을 검증할 때 제네시스 블록부터 순차적으로 transaction을 처리하며 업데이트 시킨
 unspentTxOuts를 메모리 위에 올려두고 사용한다.
 
 실제 비트코인에서도 메모리 위에 unspentTxOuts를 올려두는걸까? 배열 길이가 수 조개가 넘어갈 텐데 transaction이
